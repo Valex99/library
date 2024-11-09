@@ -1,0 +1,212 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+}
+
+
+:root {
+    /* Custom variables */
+    --invalid-border: #b92326;
+    --invalid-background: rgba(185, 35, 38, 0.25);
+    --valid-border: #8bc34a;
+    --valid-background: rgba(139, 195, 74, 0.25);
+  }
+  
+
+.nav-bar {
+  height: 80px;
+  background-color: black;
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  color: white;
+  margin-left: 30px;
+}
+
+.book-icon {
+  height: 70%;
+  filter: invert(100);
+  margin-left: 20px;
+}
+
+.button-div {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.add-new-book {
+  height: 40px;
+  color: white;
+  background-color: black;
+  border: 3px solid white;
+  padding: 10px 20px;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+.grid-content {
+  width: 100%;
+  height: calc(100vh - 80px);
+  border: 5px solid gold;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(300px, 1fr));
+}
+/* Label and input just coppied, fix both of them
+do it on your own*/
+/* FORM ITEM DIV - check*/
+.form-item {
+  position: relative;
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  position: absolute;
+  font-size: 12px;
+  margin-left: 10px;
+  margin-top: 2px;
+  margin-bottom: 8px;
+  color: rgb(107, 106, 106);
+  padding-top: 3px;
+
+  opacity: 0; /* Initially hidden */
+  transition: all 0.3s ease;
+  pointer-events: none; /* Makes the label unclickable */
+  transform: translateY(-50%);
+}
+
+input {
+  height: 50px;
+  width: 250px;
+
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+/* Modal background (hidden by default) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  justify-content: center;
+  align-items: center; /* Center content vertically and horizontally */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+/* Modal content box */
+.modal-content {
+  background: white;
+  padding: 20px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+}
+
+
+
+/**/
+label:not(:focus) {
+    opacity: 0;
+    transition: opacity 0s;
+  }
+  
+  input:focus::placeholder {
+    color: transparent;
+    transition: color 0.3s;
+  }
+  
+  input:focus:invalid {
+    outline: none;
+    border: 1px solid var(--invalid-border);
+  }
+  
+  /* Show label when input is focused or not empty */
+  /* Show label when input is focused or has text */
+  .input-field:focus + .input-label,
+  .input-field:not(:placeholder-shown) + .input-label {
+    font-size: 12px;
+    /*color: #555;*/
+    color: var(--invalid-border);
+    opacity: 1; /* Makes the label visible */
+    background-color: white;
+    padding: 0 5px;
+    top: 10px;
+    left: -2px;
+  }
+  
+  input:valid {
+    outline: none;
+    border: 1px solid var(--valid-border);
+  }
+  
+  .input-field:valid + .input-label {
+    color: var(--valid-border);
+  }
+  
+  input:valid:not(:focus) {
+    background-color: var(--valid-background);
+  }
+  
+  .input-field:valid:not(:focus) + .input-label {
+    color: var(--valid-border);
+    background-color: rgba(139, 195, 74, 0);
+  }
+  
+  input:invalid:not(:focus):not(:placeholder-shown) {
+    background-color: var(--invalid-background);
+    border: 1px solid var(--invalid-border);
+  }
+  
+  .input-field:invalid:not(:focus) + .input-label {
+    background-color: rgba(185, 35, 38, 0);
+  }
+
+
+#description {
+    margin-top: 20px;
+    max-width: 250px;
+    max-height: 400px;
+    min-height: 50px;
+    min-width: 250px;
+    flex: 0;
+}
+
+.modal-add-btn {
+    width: 100%;
+    color: white;
+    background-color: black;
+    padding: 10px 0px;
+    margin-right: 30px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    margin-top: 10PX;
+}
+
+.header-icon {
+    display: flex;
+    align-items: center;
+}
+
+.header-icon h2 {
+    flex: 1;
+    text-align: start;
+}
+
+
+.header-icon img {
+    height: 30px;
+    cursor: pointer;
+}

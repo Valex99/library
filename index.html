@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-bar">
+        <img src="icons/book-open-variant.svg" alt="" class="book-icon" />
+        <h1>Library Project</h1>
+        <div class="button-div">
+          <button class="add-new-book">Add New Book</button>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <form action="">
+            <div class="header-icon">
+              <h2>Add New Book</h2>
+              <img src="icons/close-circle-outline.svg" alt="" class="close-btn"/>
+            </div>
+            <div class="form-item">
+              <input
+                type="text"
+                id="book-title"
+                name="book-title"
+                class="input-field"
+                placeholder="Title *"
+                minlength="1"
+                autocomplete="off"
+                required
+              />
+              <label for="book-title" class="input-label">Book Title:</label>
+            </div>
+
+            <div class="form-item">
+              <input
+                type="text"
+                id="author-name"
+                name="author-name"
+                class="input-field"
+                placeholder="Author *"
+                minlength="1"
+                autocomplete="off"
+                required
+              />
+              <label for="author-name" class="input-label">Author:</label>
+            </div>
+
+            <div class="form-item">
+              <input
+                type="tel"
+                id="pages"
+                name="pages"
+                class="input-field"
+                placeholder="Number of pages *"
+                minlength="1"
+                autocomplete="off"
+                required
+              />
+              <label for="pages" class="input-label">Number of pages:</label>
+            </div>
+
+            <div>
+              <label for="">Description</label>
+              <textarea
+                name=""
+                id="description"
+                rows="10"
+                minlength="10"
+                placeholder="Description"
+              ></textarea>
+            </div>
+
+            <button type="button" class="modal-add-btn">ADD BOOK</button>
+          </form>
+        </div>
+        <!-- End modal -->
+      </div>
+      <div class="grid-content"></div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
