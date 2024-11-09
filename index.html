@@ -21,7 +21,11 @@
           <form action="">
             <div class="header-icon">
               <h2>Add New Book</h2>
-              <img src="icons/close-circle-outline.svg" alt="" class="close-btn"/>
+              <img
+                src="icons/close-circle-outline.svg"
+                alt="Close modal button"
+                class="close-btn"
+              />
             </div>
             <div class="form-item">
               <input
@@ -30,7 +34,7 @@
                 name="book-title"
                 class="input-field"
                 placeholder="Title *"
-                minlength="1"
+                minlength="3"
                 autocomplete="off"
                 required
               />
@@ -44,7 +48,7 @@
                 name="author-name"
                 class="input-field"
                 placeholder="Author *"
-                minlength="1"
+                minlength="3"
                 autocomplete="off"
                 required
               />
@@ -53,30 +57,30 @@
 
             <div class="form-item">
               <input
-                type="tel"
+                type="number"
                 id="pages"
                 name="pages"
                 class="input-field"
                 placeholder="Number of pages *"
-                minlength="1"
+                minlength="2"
                 autocomplete="off"
                 required
               />
               <label for="pages" class="input-label">Number of pages:</label>
             </div>
 
-            <div>
-              <label for="">Description</label>
+            <div class="form-item">
               <textarea
-                name=""
+                name="description"
                 id="description"
                 rows="10"
                 minlength="10"
                 placeholder="Description"
               ></textarea>
+              <label for="description" class="input-label">Description</label>
             </div>
 
-            <button type="button" class="modal-add-btn">ADD BOOK</button>
+            <button type="submit" class="modal-add-btn" disabled>ADD BOOK</button>
           </form>
         </div>
         <!-- End modal -->

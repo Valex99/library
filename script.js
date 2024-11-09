@@ -15,11 +15,30 @@ closeModalButton.addEventListener("click", () => {
 });
 
 // Close modal when clicking outside modal content
-window.addEventListener("click", (event) => {
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
-});
+//window.addEventListener("click", (event) => {
+//  if (event.target === modal) {
+//    modal.style.display = "none";
+//  }
+//});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // CONSTRUCTOR FUNCTION
 // Array where all book inputs are stored
@@ -38,16 +57,18 @@ function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
-let button = document.querySelector(".add-new-book");
+let button = document.querySelector(".modal-add-btn");
 
 button.addEventListener("click", () => {
   let title = document.getElementById("book-title").value;
   let author = document.getElementById("author-name").value;
   let pages = document.getElementById("pages").value;
   let desctiption = document.getElementById("description").value;
-  //console.log(title, authorName, pages, desctiption);
+  console.log("Before input check:", title, author, pages, desctiption);
 
-  let book = new Book(title, authorName, pages, desctiption);
+  // Check for input
+
+  let book = new Book(title, author, pages, desctiption);
   console.log("New Book Created:", book);
 
   // Call addBookToLibrary function
@@ -56,4 +77,3 @@ button.addEventListener("click", () => {
   // Log the entire library
   console.log("Library:", myLibrary);
 });
-
