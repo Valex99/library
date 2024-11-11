@@ -1,12 +1,21 @@
-// MODAL
 // Get modal elements
 const openModalButton = document.querySelector(".add-new-book");
 const modal = document.getElementById("modal");
 const closeModalButton = document.querySelector(".close-btn");
 
+// Form elements
+let addButton = document.querySelector(".modal-add-btn");
+let titleInput = document.getElementById("book-title");
+let authorInput = document.getElementById("author-name");
+let pagesInput = document.getElementById("pages");
+let descriptionInput = document.getElementById("description");
+
 // Function to open the modal
 openModalButton.addEventListener("click", () => {
   modal.style.display = "flex"; // Show the modal
+  // Set initial state of modal button to inavlid
+  const root = document.documentElement;
+  root.className = "invalid";
 });
 
 // Function to close the modal
@@ -14,34 +23,41 @@ closeModalButton.addEventListener("click", () => {
   modal.style.display = "none"; // Hide the modal
 });
 
-// Close modal when clicking outside modal content
-//window.addEventListener("click", (event) => {
-//  if (event.target === modal) {
-//    modal.style.display = "none";
-//  }
-//});
+let validity = false;
 
+function validateForm() {
+  const isTitleValid = titleInput.value.trim() !== ""; // Title should not be empty
+  const isAuthorValid = authorInput.value.trim() !== ""; // Author should not be empty
+  const isPagesValid =
+    pagesInput.value.trim() !== "" && !isNaN(pagesInput.value);
+  const isDescriptionValid = descriptionInput.value.trim().length >= 10; // Description should be at least 10 chars
 
+  // Enable button only if all fields are valid
+  validity =
+    isTitleValid && isAuthorValid && isPagesValid && isDescriptionValid;
 
+  // Set button disabled state based on validity
+  //addButton.disabled = validity;
 
+  // Update the theme
+  setTheme();
+}
 
+function setTheme() {
+  const root = document.documentElement;
 
+  // Choose theme based on the boolean state of `validity`
+  const newTheme = validity ? "valid" : "invalid";
+  root.className = newTheme;
+}
 
+// Attach 'input' event listeners to each field to validate the form in real-time
+titleInput.addEventListener("input", validateForm);
+authorInput.addEventListener("input", validateForm);
+pagesInput.addEventListener("input", validateForm);
+descriptionInput.addEventListener("input", validateForm);
 
-
-
-
-
-
-
-
-
-
-
-
-
-// CONSTRUCTOR FUNCTION
-// Array where all book inputs are stored
+// Array to store book data
 const myLibrary = [];
 
 // Constructor function for creating new book
@@ -57,23 +73,27 @@ function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
-let button = document.querySelector(".modal-add-btn");
+// Add book when button is clicked
+addButton.addEventListener("click", () => {
+  const root = document.documentElement;
+  console.log(root.className);
+  if (root.className === "valid") {
+    const title = titleInput.value;
+    const author = authorInput.value;
+    const pages = pagesInput.value;
+    const description = descriptionInput.value;
 
-button.addEventListener("click", () => {
-  let title = document.getElementById("book-title").value;
-  let author = document.getElementById("author-name").value;
-  let pages = document.getElementById("pages").value;
-  let desctiption = document.getElementById("description").value;
-  console.log("Before input check:", title, author, pages, desctiption);
+    const book = new Book(title, author, pages, description);
+    addBookToLibrary(book);
 
-  // Check for input
+    console.log("New Book Created:", book);
+    console.log("Library:", myLibrary);
 
-  let book = new Book(title, author, pages, desctiption);
-  console.log("New Book Created:", book);
-
-  // Call addBookToLibrary function
-  addBookToLibrary(book);
-
-  // Log the entire library
-  console.log("Library:", myLibrary);
+    // Clear form and reset button state
+    titleInput.value = "";
+    authorInput.value = "";
+    pagesInput.value = "";
+    descriptionInput.value = "";
+    modal.style.display = "none"; // Close modal after adding the book
+  }
 });
