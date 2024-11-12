@@ -49,6 +49,7 @@
                 class="input-field"
                 placeholder="Author *"
                 minlength="3"
+                maxlength="25"
                 autocomplete="off"
                 required
               />
@@ -62,20 +63,23 @@
                 name="pages"
                 class="input-field"
                 placeholder="Number of pages *"
-                minlength="2"
+                min="1"
+                max="9999"
                 autocomplete="off"
                 required
               />
-              <label for="pages" class="input-label">Number of pages:</label>
+              <label for="pages" class="input-label">Number of pages: (1 - 9999)</label>
             </div>
 
             <div class="form-item">
               <textarea
                 name="description"
                 id="description"
-                rows="10"
+                rows="6"
                 minlength="10"
+                maxlength="125"
                 placeholder="Description"
+                wrap="soft"
               ></textarea>
               <label for="description" class="input-label">Descript</label>
             </div>
@@ -86,6 +90,7 @@
         <!-- End modal -->
       </div>
       <div class="grid-content"></div>
+      <div class="empty-library">No books were found</div>
     </div>
   </body>
   <script src="script.js"></script>

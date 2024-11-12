@@ -10,6 +10,19 @@ let authorInput = document.getElementById("author-name");
 let pagesInput = document.getElementById("pages");
 let descriptionInput = document.getElementById("description");
 
+let container = document.querySelector(".grid-content");
+
+function checkIfBookExists() {
+  const bookDiv = document.querySelectorAll(".book-container");
+  const noBookDiv = document.querySelector(".empty-library");
+
+  if (bookDiv.length !== 0) {
+    noBookDiv.style.display = "none";
+  } else {
+    noBookDiv.style.display = "flex";
+  }
+}
+
 // Function to open the modal
 openModalButton.addEventListener("click", () => {
   modal.style.display = "flex"; // Show the modal
@@ -21,6 +34,7 @@ openModalButton.addEventListener("click", () => {
 // Function to close the modal
 closeModalButton.addEventListener("click", () => {
   modal.style.display = "none"; // Hide the modal
+  clearForm(); // Clear the modal
 });
 
 let validity = false;
@@ -36,10 +50,7 @@ function validateForm() {
   validity =
     isTitleValid && isAuthorValid && isPagesValid && isDescriptionValid;
 
-  // Set button disabled state based on validity
-  //addButton.disabled = validity;
-
-  // Update the theme
+  // Update the button theme
   setTheme();
 }
 
@@ -74,6 +85,7 @@ function addBookToLibrary(book) {
 }
 
 // Add book when button is clicked
+
 addButton.addEventListener("click", () => {
   const root = document.documentElement;
   console.log(root.className);
@@ -89,11 +101,96 @@ addButton.addEventListener("click", () => {
     console.log("New Book Created:", book);
     console.log("Library:", myLibrary);
 
-    // Clear form and reset button state
-    titleInput.value = "";
-    authorInput.value = "";
-    pagesInput.value = "";
-    descriptionInput.value = "";
-    modal.style.display = "none"; // Close modal after adding the book
+    displayNewBook(book);
+    clearForm();
+    checkIfBookExists();
   }
 });
+
+// Clear form and reset button state
+function clearForm() {
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  descriptionInput.value = "";
+  modal.style.display = "none"; // Close modal after adding the book
+}
+
+// Function for dynamically creating new element
+function displayNewBook(book) {
+  const bookContainer = document.createElement("div");
+  bookContainer.classList.add("book-container");
+  container.appendChild(bookContainer);
+
+  const bookTitle = document.createElement("div");
+  bookTitle.classList.add("new-book-title");
+  bookTitle.textContent = book.title;
+  bookContainer.appendChild(bookTitle);
+
+  const authorPagesDiv = document.createElement("div");
+  authorPagesDiv.classList.add("author-pages-div");
+  bookContainer.appendChild(authorPagesDiv);
+
+  const authorName = document.createElement("p");
+  authorName.classList.add("new-author-name");
+  authorName.textContent = book.author;
+  authorPagesDiv.appendChild(authorName);
+
+  const descriptionIconsDiv = document.createElement("div");
+  descriptionIconsDiv.classList.add("description-icons-div");
+  bookContainer.appendChild(descriptionIconsDiv);
+
+  const bookDescription = document.createElement("div");
+  bookDescription.classList.add("book-description");
+  bookDescription.textContent = book.description;
+  descriptionIconsDiv.appendChild(bookDescription);
+
+  const iconDiv = document.createElement("div");
+  iconDiv.classList.add("icon-div");
+  descriptionIconsDiv.appendChild(iconDiv);
+
+  const checkIcon = document.createElement("img");
+  checkIcon.classList.add("check-all", "icon");
+  checkIcon.src = "icons/check-all.svg";
+  iconDiv.appendChild(checkIcon);
+
+  const trashIcon = document.createElement("img");
+  trashIcon.classList.add("trash", "icon");
+  trashIcon.src = "icons/trash-can-outline.svg";
+  iconDiv.appendChild(trashIcon);
+
+  const pagesNumber = document.createElement("p");
+  pagesNumber.classList.add("new-pages-name");
+  pagesNumber.textContent = "Pages: " + book.pages;
+  authorPagesDiv.appendChild(pagesNumber);
+
+  // REMOVE BOOK WHEN TRASH ICON IS CLICKED
+  // Add event listener right after you create icon
+  trashIcon.addEventListener("click", () => {
+    // Remove the specific book container
+    bookContainer.remove();
+    // Each time a book is deleted, call function again to see if it was the last one
+    checkIfBookExists();
+  });
+
+  checkIcon.addEventListener("click", () => {
+    bookContainer.style.opacity = "0.6";
+    checkIcon.style.display = "none";
+    //checkIcon.remove();
+
+    const markedIcon = document.createElement("img");
+    markedIcon.classList.add("marked-icon", "icon");
+    markedIcon.src = "icons/check-circle-outline.svg";
+    markedIcon.style.position = "absolute";
+    markedIcon.style.left = "15px";
+    iconDiv.appendChild(markedIcon);
+
+    markedIcon.addEventListener("click", () => {
+      markedIcon.style.display = "none";
+      checkIcon.style.display = "flex";
+      bookContainer.style.opacity = "1";
+    });
+  });
+}
+
+// Turn icon into green color once it is marked!
