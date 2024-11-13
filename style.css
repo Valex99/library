@@ -30,7 +30,6 @@
   color: var(--color);
   background-color: var(--background-color);
   cursor: var(--cursor);
-
   width: 100%;
   padding: 10px 0px;
   margin-right: 30px;
@@ -112,13 +111,6 @@ input {
   padding: 10px;
 }
 
-/*
-.modal-add-btn:hover {
-  background-color: #333;
-  color: #f0f0f0; /*
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  */
-
 .header-icon {
   display: flex;
   align-items: center;
@@ -147,10 +139,10 @@ input {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
-  align-items: center; /* Center content vertically and horizontally */
-  z-index: 1000; /* Ensure it's above other content */
+  align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
@@ -162,7 +154,7 @@ input {
   display: flex;
 }
 
-/*Pseudo selectors for styling form state*/
+/* Pseudo selectors for styling form state */
 label:not(:focus) {
   opacity: 0;
   transition: opacity 0s;
@@ -227,19 +219,18 @@ input:invalid:not(:focus):not(:placeholder-shown) {
 
 /* Creating new book */
 .book-container {
-  padding: 20px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
   display: flex;
-
   flex-direction: column;
   height: 240px;
   max-width: 400px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
 }
 
 .new-book-title {
-  height: 20%;
   font-weight: bold;
   font-size: 22px;
+  overflow-wrap: break-word;
 }
 
 .author-pages-div {
@@ -247,6 +238,9 @@ input:invalid:not(:focus):not(:placeholder-shown) {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  color: #a29180;
+  font-size: 15px;
+  margin-top: 6px;
 }
 
 .new-pages-name {
@@ -255,8 +249,7 @@ input:invalid:not(:focus):not(:placeholder-shown) {
 
 .book-description {
   width: 70%;
-  /*height: calc(100% - 20% - 30px);*/
-  overflow-wrap: break-word; /* Break long words if they overflow */
+  overflow-wrap: break-word;
 }
 
 .description-icons-div {
@@ -270,9 +263,6 @@ input:invalid:not(:focus):not(:placeholder-shown) {
   display: flex;
   align-items: flex-end;
   justify-content: end;
-  gap: 15px;
-
-  /* Added */
   position: relative;
 }
 
@@ -280,7 +270,6 @@ input:invalid:not(:focus):not(:placeholder-shown) {
   height: 30px;
 }
 
-/* ADDED */
 .check-all {
   position: absolute;
   left: 15px;
@@ -290,8 +279,17 @@ input:invalid:not(:focus):not(:placeholder-shown) {
   right: 10px;
 }
 
-/* Icon hover */
+.marked-icon {
+  height: 30px;
+  width: 30px;
+  fill: rgb(42, 195, 42);
+}
+
 .icon:hover {
   filter: invert(50%);
   cursor: pointer;
+}
+
+.book-container:hover {
+  background-color: rgb(225, 225, 225);
 }

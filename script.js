@@ -98,9 +98,6 @@ addButton.addEventListener("click", () => {
     const book = new Book(title, author, pages, description);
     addBookToLibrary(book);
 
-    console.log("New Book Created:", book);
-    console.log("Library:", myLibrary);
-
     displayNewBook(book);
     clearForm();
     checkIfBookExists();
@@ -164,27 +161,35 @@ function displayNewBook(book) {
   pagesNumber.textContent = "Pages: " + book.pages;
   authorPagesDiv.appendChild(pagesNumber);
 
-  // REMOVE BOOK WHEN TRASH ICON IS CLICKED
-  // Add event listener right after you create icon
+  // Remove book when trash icon is clicked
   trashIcon.addEventListener("click", () => {
-    // Remove the specific book container
     bookContainer.remove();
-    // Each time a book is deleted, call function again to see if it was the last one
+    // Each time a book is deleted, call function again to see if any books still exist
     checkIfBookExists();
   });
 
   checkIcon.addEventListener("click", () => {
-    bookContainer.style.opacity = "0.6";
+    bookContainer.style.opacity = "0.5";
+    // Hide first icon - set display to none
     checkIcon.style.display = "none";
-    //checkIcon.remove();
 
-    const markedIcon = document.createElement("img");
-    markedIcon.classList.add("marked-icon", "icon");
-    markedIcon.src = "icons/check-circle-outline.svg";
+    // Create new icon
+    const markedIcon = document.createElement("div");
+    markedIcon.classList.add("icon");
     markedIcon.style.position = "absolute";
     markedIcon.style.left = "15px";
+
+    // Insert SVG code into the div as innerHTML
+    markedIcon.innerHTML = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M12 20C7.59 20 4 16.41 4 12S7.59 4 12 4 20 7.59 20 12 16.41 20 12 20M16.59 7.58L10 14.17L7.41 11.59L6 13L10 17L18 9L16.59 7.58Z" />
+</svg>
+`;
+    const svgIcon = markedIcon.querySelector("svg");
+    svgIcon.classList.add("marked-icon");
     iconDiv.appendChild(markedIcon);
 
+    // Unselect the book (remove from marked list)
     markedIcon.addEventListener("click", () => {
       markedIcon.style.display = "none";
       checkIcon.style.display = "flex";
@@ -192,5 +197,3 @@ function displayNewBook(book) {
     });
   });
 }
-
-// Turn icon into green color once it is marked!
