@@ -37,6 +37,17 @@ closeModalButton.addEventListener("click", () => {
   clearForm(); // Clear the modal
 });
 
+// Function to close the modal on backdrop click
+// event is used to  access properties like event.target (to check where the click happened)
+// When it doesn't matter where click happens, ("click", () => can be used
+modal.addEventListener("click", (event) => {
+  if (event.target === modal) {
+    // Check if the click is directly on the modal (backdrop)
+    modal.style.display = "none";
+    clearForm();
+  }
+});
+
 let validity = false;
 
 function validateForm() {
@@ -69,7 +80,14 @@ pagesInput.addEventListener("input", validateForm);
 descriptionInput.addEventListener("input", validateForm);
 
 // Array to store book data
-const myLibrary = [];
+// Initialize library from local storage or as an empty array
+let myLibrary = JSON.parse(localStorage.getItem("myLibrary")) || [];
+
+// Check if there are saved books in localStorage on page load
+document.addEventListener("DOMContentLoaded", () => {
+  loadBooksFromStorage();
+  checkIfBookExists(); // Update the empty library message based on loaded books
+});
 
 // Constructor function for creating new book
 function Book(title, author, pages, description) {
@@ -82,13 +100,27 @@ function Book(title, author, pages, description) {
 // Function that adds book into myLibrary array
 function addBookToLibrary(book) {
   myLibrary.push(book);
+  saveBooksToStorage(); // Save updated library to localStorage
+}
+
+// Function to save books to localStorage
+function saveBooksToStorage() {
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+}
+
+// Function to load books from localStorage
+function loadBooksFromStorage() {
+  const storedBooks = localStorage.getItem("myLibrary");
+  if (storedBooks) {
+    myLibrary = JSON.parse(storedBooks);
+    myLibrary.forEach((book) => displayNewBook(book)); // Display each book
+  }
 }
 
 // Add book when button is clicked
 
 addButton.addEventListener("click", () => {
   const root = document.documentElement;
-  console.log(root.className);
   if (root.className === "valid") {
     const title = titleInput.value;
     const author = authorInput.value;
@@ -164,6 +196,8 @@ function displayNewBook(book) {
   // Remove book when trash icon is clicked
   trashIcon.addEventListener("click", () => {
     bookContainer.remove();
+    myLibrary = myLibrary.filter((b) => b.title !== book.title); // Remove from array
+    saveBooksToStorage(); // Update localStorage
     // Each time a book is deleted, call function again to see if any books still exist
     checkIfBookExists();
   });
@@ -177,7 +211,6 @@ function displayNewBook(book) {
     const markedIcon = document.createElement("div");
     markedIcon.classList.add("icon");
     markedIcon.style.position = "absolute";
-    markedIcon.style.left = "15px";
 
     // Insert SVG code into the div as innerHTML
     markedIcon.innerHTML = `

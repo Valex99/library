@@ -212,7 +212,7 @@ input:invalid:not(:focus):not(:placeholder-shown) {
 .grid-content {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   padding: 20px;
   gap: 30px;
 }
@@ -264,25 +264,24 @@ input:invalid:not(:focus):not(:placeholder-shown) {
   align-items: flex-end;
   justify-content: end;
   position: relative;
+  min-width: 76px;
 }
 
 .icon {
   height: 30px;
 }
 
-.check-all {
-  position: absolute;
-  left: 15px;
-}
-
 .trash {
   right: 10px;
+  margin-left: 15px;
 }
 
 .marked-icon {
   height: 30px;
   width: 30px;
   fill: rgb(42, 195, 42);
+  position: absolute;
+  right: 43px;
 }
 
 .icon:hover {
